@@ -1,6 +1,19 @@
 # DBGAPI
 A simple wrapper for Discord Bots Group api
 
+# Adding to your dependencies - Gradle
+Add to your build.gradle file
+```Groovy
+allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}
+  dependencies {
+	        implementation 'com.github.dondish:DBGAPI:-SNAPSHOT'
+	}
+```
+
 # Posting server count
 If you use [JDA](https://github.com/DV8FromTheWorld/JDA) I really recommend just doing:
 ```Java
