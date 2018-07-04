@@ -24,14 +24,26 @@ public class DBGAPI {
         this.botid = botid;
     }
 
-    public DBGAPI(JDA jda) {
+    /**
+     * Constructor so you can use not static methods yay
+     * THIS SPECIFIC CONSTRUCTOR AUTO POSTS SERVER COUNT
+     * @param jda JDA
+     * @param token the api token
+     */
+    public DBGAPI(JDA jda, String token) {
         this.jda = jda;
-        TOKEN = jda.getToken();
+        TOKEN = token;
         botid = jda.getSelfUser().getId();
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(this::postServerCount, 0, 30, TimeUnit.MINUTES);
     }
 
+    /**
+     * Post server count statically
+     * @param servercount server count
+     * @param TOKEN the api token
+     * @param botid the id of the bot
+     */
     public static void postServerCount(long servercount, String TOKEN, String botid) {
         try {
             JSONObject json = new JSONObject().put("count", servercount);
@@ -50,20 +62,36 @@ public class DBGAPI {
         }
     }
 
+    /**
+     * Post the server count with Token and the bot id initialized
+     * @param servercount server count
+     */
     public void postServerCount(long servercount) {
         postServerCount(servercount, TOKEN, botid);
     }
 
-    public static void postServerCount(JDA jda) {
-        postServerCount(jda.getGuildCache().size(), jda.getToken(), jda.getSelfUser().getId());
+    /**
+     * Posts server count
+     * @param jda JDA
+     */
+    public static void postServerCount(JDA jda, String token) {
+        postServerCount(jda.getGuildCache().size(), token, jda.getSelfUser().getId());
     }
 
+    /**
+     * Posts server count when you have jda configured
+     */
     public void postServerCount() {
         if (jda==null)
             throw new IllegalStateException("Cannot post without arguments when JDA is not defined!");
-        postServerCount(jda);
+        postServerCount(jda, TOKEN);
     }
 
+    /**
+     * Receive bot information
+     * @param id the id of the bot you wish to receive info about
+     * @return the information in JSONObject format
+     */
     public static JSONObject getBotInfo(String id) {
         try {
             Request request = new Request.Builder().url(API_URL + "/bot/" + id).get().build();
