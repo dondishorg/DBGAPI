@@ -5,13 +5,29 @@ A simple wrapper for Discord Bots Group api
 Add to your build.gradle file
 ```Groovy
 allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		maven { url 'https://jitpack.io' }
 	}
-  dependencies {
-	        implementation 'com.github.dondish:DBGAPI:-SNAPSHOT'
-	}
+}
+dependencies {
+	implementation 'com.github.dondish:DBGAPI:-SNAPSHOT'
+}
+```
+
+# Adding to your dependencies - Maven
+add to your maven build file
+```XML
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+<dependency>
+    <groupId>com.github.dondish</groupId>
+    <artifactId>DBGAPI</artifactId>
+    <version>-SNAPSHOT</version>
+</dependency>
 ```
 
 # Posting server count
